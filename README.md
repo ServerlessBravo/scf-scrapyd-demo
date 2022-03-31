@@ -80,6 +80,14 @@ https://service-xxxxx-1253970226.gz.apigw.tencentcs.com/release/python_simple_de
 
 ## 其他
 
+### 异步执行
+
+如果执行时间超过默认允许的超时时间限制，需要开启异步执行模式，可以支持最大 24 小时的执行时间，参考文档：https://cloud.tencent.com/document/product/583/51519
+
+创建函数：
+
+![Run in Async Mode](https://user-images.githubusercontent.com/251222/160980864-05f281ed-0cd3-40ac-a091-1ac46f6149b2.png)
+
 ### 自定义参数
 
 例如示例中，可以通过 `spider_kwargs` 给对应的应用传递自定义参数，在代码中可以通过以下方式获取：
