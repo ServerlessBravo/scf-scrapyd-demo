@@ -1,6 +1,6 @@
 # SCF SCrapy Demo
 
-在云函数上运行 SCrapy 应用示例
+在云函数上运行 SCrapy 应用示例，对于存量的 Scripy 应用，只需要把该示例中的 `index.py` 添加到代码库即可。
 
 ## 本地依赖安装
 
