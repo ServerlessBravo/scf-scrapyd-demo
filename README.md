@@ -100,7 +100,7 @@ def __init__(self, **kwargs):
 ### 结果持久化
 
 - 可以通过挂载 `CFS`，把结果持久化到共享文件存储中，修改 `HTTPCACHE_DIR` 环境变量即可，参考链接：https://cloud.tencent.com/document/product/583/46199
-- `COS` 原生支持 `S3` 协议，Scrapy的 `Feed_Format` 支持对应的协议，可以通过配置把内容写入到对象存储中 [用法待补充]
+- `COS` 原生支持 `S3` 协议，Scrapy的 `Feed_Format` 支持对应的协议，可以通过配置把内容写入到对象存储中 [用法待补充], [查看链接](https://docs.scrapy.org/en/latest/topics/feed-exports.html#topics-feed-storage-s3)
 
 ## 参考链接
 
