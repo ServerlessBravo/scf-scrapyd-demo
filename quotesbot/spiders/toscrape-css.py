@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
+from unicodedata import name
 import scrapy
 
 
 class ToScrapeCSSSpider(scrapy.Spider):
     name = "toscrape-css"
-    start_urls = [
-        'http://quotes.toscrape.com/',
-    ]
+
+    def __init__(self, **kwargs):
+        super(ToScrapeCSSSpider, self).__init__(name=name, **kwargs)
+
+        self.start_urls = [
+            'http://quotes.toscrape.com/',
+        ]
+        self.arguments = kwargs
 
     def parse(self, response):
         for quote in response.css("div.quote"):

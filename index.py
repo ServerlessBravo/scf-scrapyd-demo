@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 
 parent_dir = os.path.abspath(os.path.dirname(__file__))
 vendor_dir = os.path.join(parent_dir, 'vendor')
@@ -10,7 +11,13 @@ from scrapy.crawler import CrawlerProcess
 from scrapy.spiderloader import SpiderLoader
 
 def main_handler(event, context):
-    crawl(**event)
+    if event.get('body'):
+        spider_event = json.loads(event['body'])
+        print("trigger spider from apgw with event {0}".format(spider_event))
+        crawl(**spider_event)
+    else:
+        print("trigger spider with event {0}".format(event))
+        crawl(**event)
 
 
 def crawl(settings={}, spider_name="toscrape-css", spider_kwargs={}):
@@ -19,13 +26,10 @@ def crawl(settings={}, spider_name="toscrape-css", spider_kwargs={}):
 
     spider_cls = spider_loader.load(spider_name)
 
-    feed_uri = ""
-    feed_format = "json"
-
     #SCF can only write to the /tmp folder.
     settings['HTTPCACHE_DIR'] = "/tmp"
-    settings['FEED_URI'] = feed_uri
-    settings['FEED_FORMAT'] = feed_format
+    settings['FEED_URI'] = ""
+    settings['FEED_FORMAT'] = "json"
 
     process = CrawlerProcess({**project_settings, **settings})
 
@@ -35,6 +39,27 @@ def crawl(settings={}, spider_name="toscrape-css", spider_kwargs={}):
 
 if __name__ == "__main__":
     event = {
-        "spider_name": 'toscrape-css'
+        "spider_name": "toscrape-css",
+        "spider_kwargs": {
+            "key1": "value1",
+            "key2": "value2"
+        } 
     }
     main_handler(event, {})
+
+    # sample apigw event
+    # apigw_event = {
+    #     "body": "{\n    \"spider_name\": \"toscrape-css\",\n    \"spider_kwargs\": {\n        \"key1\": \"value1\",\n        \"key2\": \"value2\"\n    }\n}",
+    #     "headerParameters": {},
+    #     "headers": {
+    #         "accept": "*/*",
+    #         "accept-encoding": "gzip, deflate, br",
+    #     },
+    #     "httpMethod": "POST",
+    #     "isBase64Encoded": "false",
+    #     "path": "/python_simple_demo",
+    #     "pathParameters": {},
+    #     "queryString": {},     
+    #     "queryStringParameters": {}
+    # }
+    # main_handler(apigw_event, {})
