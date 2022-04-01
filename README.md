@@ -8,6 +8,8 @@
 
 ## 本地依赖安装
 
+***⚠️注意：安装依赖过程中设计到二进制文件的构建，MacOS构建的结果无法直接在SCF运行，建议在 Linux / CentOS 执行依赖安装命令：***
+
 通过把所有的依赖导出到 `vendor` 目录，项目结构更加清晰：
 
 ```bash
@@ -83,6 +85,24 @@ https://service-xxxxx-1253970226.gz.apigw.tencentcs.com/release/python_simple_de
     ```
 
 ## 其他
+
+### 云端依赖安装
+
+SCF 的在线版本IDE `Cloud Studio` 对于Python 3.7的支持即将发布，可以通过云端环境直接安装依赖，避免环境差异带来的兼容性问题：
+
+1. 打包且不包含第三方依赖：
+
+    ```bash
+    zip -r scrapy_demo_1.0.zip . -x "*.git*" -x "*.__MACOSX*" -x "vendor"
+    ```
+2. 上传 Zip 文件进行函数部署
+3. 打开 云端IDE的 Terminal，执行以下命令：
+
+    ```bash
+    cd src
+    pip3 install -r requirements.txt -t vendor
+    ```
+4. 重新部署函数
 
 ### 异步执行
 
