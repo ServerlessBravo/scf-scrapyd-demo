@@ -93,3 +93,5 @@ dbs
 logs
 items
 eggs
+test.txt
+twistd.pid

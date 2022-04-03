@@ -32,6 +32,16 @@ pyenv exec python3 index.py
 ## 或者
 python3 index.py
 ```
+
+## 本地压测
+
+```bash
+URL="https://service-xxxx-1253970226.gz.apigw.tencentcs.com/release/schedule.json"
+echo -n "project=default&spider=toscrape-css" > test.txt | \ 
+    cat test.txt | \
+    ab -p /dev/stdin -T 'application/x-www-form-urlencoded' \
+    -n 100 -c2 $URL
+```
 ## 打包
 
 ```bash
