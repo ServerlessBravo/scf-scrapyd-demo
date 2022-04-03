@@ -4,9 +4,9 @@ import scrapy
 
 
 class ToScrapeCSSSpider(scrapy.Spider):
-    name = "toscrape-css"
 
     def __init__(self, **kwargs):
+        self.name = "toscrape-css"
         super(ToScrapeCSSSpider, self).__init__(name=name, **kwargs)
 
         self.start_urls = [
