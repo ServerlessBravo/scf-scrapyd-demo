@@ -1,5 +1,5 @@
 #!/bin/bash
 cp -R  /var/user /tmp/app
 cd /tmp/app
-
+export PYTHONPATH=/tmp/app/vendor:$PYTHONPATH
 /var/lang/python37/bin/python3 launch.py
